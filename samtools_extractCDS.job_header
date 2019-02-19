@@ -1,0 +1,19 @@
+#!/bin/bash
+ 
+#PBS -N find_seqs
+#PBS -q darwin
+#PBS -l nodes=1:ppn=1,naccesspolicy=shared
+#PBS -l walltime=130:00:00
+#PBS -m abe
+#PBS -M XX@purdue.edu
+
+cd $PBS_O_WORKDIR
+
+module load bioinfo
+module load samtools/1.3.1
+
+#to generate body
+perl createsamlist.pl ../../../genedist/Ssal_ICSASG_v2-18092015.gff3.CDS.txt > samtools_extractCDS.job_body
+cat samtools_extractCDS.job_header samtools_extractCDS.job_body > samtools_extractCDS.job
+
+#samtools commands
